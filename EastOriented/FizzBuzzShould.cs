@@ -12,7 +12,7 @@ namespace EastOriented
         public FizzBuzzShould()
         {
             _output = new Mock<IOutput>();
-            _fizzBuzz = new FizzBuzz(_output.Object);
+            _fizzBuzz = new FizzBuzz(new IAnalyzer[] { new FizzAnalyzer(), new BuzzAnalyzer() }, _output.Object);
         }
 
         [Fact]
@@ -44,6 +44,7 @@ namespace EastOriented
             _fizzBuzz.Play(5);
 
             _output.Verify(x => x.Write("Buzz"), Times.Once);
+            _output.Verify(x => x.Write(It.Is<string>(y => !y.Equals("Buzz"))), Times.Never);
         }
 
         [Fact]
@@ -52,6 +53,7 @@ namespace EastOriented
             _fizzBuzz.Play(15);
 
             _output.Verify(x => x.Write("FizzBuzz"), Times.Once);
+            _output.Verify(x => x.Write(It.Is<string>(y => !y.Equals("FizzBuzz"))), Times.Never);
         }
     }
 }

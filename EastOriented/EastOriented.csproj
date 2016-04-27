@@ -64,6 +64,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuzzAnalyzer.cs" />
+    <Compile Include="FizzAnalyzer.cs" />
     <Compile Include="FizzBuzzShould.cs" />
     <Compile Include="IAnalyzer.cs" />
     <Compile Include="IOutput.cs" />

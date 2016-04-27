@@ -2,37 +2,52 @@
 
 namespace EastOriented
 {
-    public class FizzBuzz : IOutput
+    public class FizzBuzz
     {
-        private IOutput output;
+        private readonly IEnumerable<IAnalyzer> _analyzers;
+        private readonly IOutput _output;
 
-        public FizzBuzz(IOutput output)
+        public FizzBuzz(IEnumerable<IAnalyzer> analyzers, IOutput output)
         {
-            this.output = output;
+            _analyzers = analyzers;
+            _output = output;
         }
 
         public void Play(int i)
         {
-            if (i % (3 * 5) == 0)
+            var outputWriter = new OutputWriter(i, _output);
+            foreach (var analyzer in _analyzers)
             {
-                output.Write("FizzBuzz");
+                analyzer.Process(outputWriter, i);
             }
-            else if (i % 3 == 0)
-            {
-                output.Write("Fizz");
-            }
-            else if (i % 5 == 0)
-            {
-                output.Write("Buzz");
-            }
-            else
-            {
-                output.Write("1");
-            }
+            outputWriter.Flush();
         }
 
-        public void Write(string str)
+        private class OutputWriter : IOutput
         {
+            private readonly int _i;
+            private readonly IOutput _output;
+            private string _result = string.Empty;
+
+            public OutputWriter(int i, IOutput output)
+            {
+                _i = i;
+                _output = output;
+            }
+
+            public void Write(string str)
+            {
+                _result += str;
+            }
+
+            public void Flush()
+            {
+                if (string.IsNullOrEmpty(_result))
+                {
+                    _result = _i.ToString();
+                }
+                _output.Write(_result);
+            }
         }
     }
 }
