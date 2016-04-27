@@ -9,10 +9,13 @@ namespace EastOriented
         private readonly Mock<IOutput> _output;
         private readonly FizzBuzz _fizzBuzz;
 
+        private string _result = string.Empty;
+
         public FizzBuzzShould()
         {
             _output = new Mock<IOutput>();
-            _fizzBuzz = new FizzBuzz(new IAnalyzer[] { new FizzAnalyzer(), new BuzzAnalyzer() }, _output.Object);
+            _output.Setup(x => x.Write(It.IsAny<string>())).Callback<string>(x => _result += x);
+            _fizzBuzz = new FizzBuzz(new IAnalyzer[] { new FizzAnalyzer(), new BuzzAnalyzer(), new BangAnalyzer() }, _output.Object);
         }
 
         [Fact]
@@ -26,7 +29,7 @@ namespace EastOriented
         {
             _fizzBuzz.Play(1);
 
-            _output.Verify(x => x.Write("1"), Times.Once);
+            Check.That(_result).Equals("1");
         }
 
         [Fact]
@@ -34,8 +37,7 @@ namespace EastOriented
         {
             _fizzBuzz.Play(3);
 
-            _output.Verify(x => x.Write("Fizz"), Times.Once);
-            _output.Verify(x => x.Write(It.Is<string>(y => !y.Equals("Fizz"))), Times.Never);
+            Check.That(_result).Equals("Fizz");
         }
 
         [Fact]
@@ -43,8 +45,7 @@ namespace EastOriented
         {
             _fizzBuzz.Play(5);
 
-            _output.Verify(x => x.Write("Buzz"), Times.Once);
-            _output.Verify(x => x.Write(It.Is<string>(y => !y.Equals("Buzz"))), Times.Never);
+            Check.That(_result).Equals("Buzz");
         }
 
         [Fact]
@@ -52,8 +53,15 @@ namespace EastOriented
         {
             _fizzBuzz.Play(15);
 
-            _output.Verify(x => x.Write("FizzBuzz"), Times.Once);
-            _output.Verify(x => x.Write(It.Is<string>(y => !y.Equals("FizzBuzz"))), Times.Never);
+            Check.That(_result).Equals("FizzBuzz");
+        }
+
+        [Fact]
+        public void OutputBangWhenMultipleOf7()
+        {
+            _fizzBuzz.Play(7);
+
+            Check.That(_result).Equals("Bang");
         }
     }
 }
