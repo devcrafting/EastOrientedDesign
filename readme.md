@@ -2,11 +2,11 @@
 
 It could be seen as a design or programming tool. See [James Ladd blog post](http://jamesladdcode.com/?p=12) for reference.
 
-We could also say that it is "well applied" OOP, considering that OOP is about message passing as its root (and not about getters/setters with services/managers manipulating them). It also recalls the [Tell Don't Ask principle](http://martinfowler.com/bliki/TellDontAsk.html).
+We could also say that it is "well applied" OOP, considering that OOP is about message passing as its root (and not about getters/setters with services/managers manipulating them!). It also recalls the [Tell Don't Ask principle](http://martinfowler.com/bliki/TellDontAsk.html).
 
 I tried it at [Software Craftsmanship Lyon Coding Dojo in april 2016](http://www.meetup.com/fr-FR/Software-Craftsmanship-Lyon/events/230319693/). Here is a result.
 
-## Note of this implementation
+## Notes on this implementation
 
 I applied TDD and emergent design. I never tried to add something I did not need.
 
