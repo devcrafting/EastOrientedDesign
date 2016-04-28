@@ -64,13 +64,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BangAnalyzer.cs" />
-    <Compile Include="BuzzAnalyzer.cs" />
-    <Compile Include="FizzAnalyzer.cs" />
     <Compile Include="FizzBuzzShould.cs" />
     <Compile Include="IAnalyzer.cs" />
     <Compile Include="IOutput.cs" />
     <Compile Include="FizzBuzz.cs" />
+    <Compile Include="ModuloAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

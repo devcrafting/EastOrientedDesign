@@ -15,7 +15,7 @@ namespace EastOriented
         {
             _output = new Mock<IOutput>();
             _output.Setup(x => x.Write(It.IsAny<string>())).Callback<string>(x => _result += x);
-            _fizzBuzz = new FizzBuzz(new IAnalyzer[] { new FizzAnalyzer(), new BuzzAnalyzer(), new BangAnalyzer() }, _output.Object);
+            _fizzBuzz = new FizzBuzz(new IAnalyzer[] { new ModuloAnalyzer(3, "Fizz"), new ModuloAnalyzer(5, "Buzz"), new ModuloAnalyzer(7, "Bang"),  }, _output.Object);
         }
 
         [Fact]
